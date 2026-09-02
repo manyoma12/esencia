@@ -1,934 +1,1588 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Esencia | Perfumes & Lociones</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<title>ESENCIA — Perfumes & Lociones</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0a0809;
+    color:white;
+}
+
+/* =========================
+   PANTALLAS
+========================= */
+
+.screen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    overflow-y:auto;
+    display:none;
+}
+
+.screen.active{
+    display:block;
+}
+
+
+/* =========================
+   PANTALLA DE INICIO
+========================= */
+
+.home{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    background:
+
+    linear-gradient(
+        90deg,
+        rgba(7,5,6,.88),
+        rgba(7,5,6,.34)
+    ),
+
+    url("https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=2000&q=90")
+
+    center/cover no-repeat;
+}
+
+
+.home:before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    radial-gradient(
+        circle,
+        transparent 20%,
+        rgba(0,0,0,.45)
+    );
+
+    pointer-events:none;
+}
+
+
+.home-content{
+
+    position:relative;
+
+    z-index:1;
+
+    max-width:850px;
+
+    padding:30px;
+}
+
+
+.logo{
+
+    font:
+
+    700 24px Georgia,serif;
+
+    letter-spacing:7px;
+
+    color:#f0d49c;
+
+    margin-bottom:55px;
+}
+
+
+.kicker{
+
+    text-transform:uppercase;
+
+    letter-spacing:6px;
+
+    font-size:12px;
+
+    color:#e5c583;
+
+    margin-bottom:20px;
+}
+
+
+h1{
+
+    font:
+
+    700 clamp(58px,9vw,112px)/.9 Georgia,serif;
+
+    letter-spacing:-2px;
+}
+
+
+.home-text{
+
+    font-size:18px;
+
+    color:#eee;
+
+    max-width:600px;
+
+    margin:28px auto 38px;
+}
+
+
+/* BOTÓN */
+
+.cta{
+
+    border:0;
+
+    border-radius:50px;
+
+    padding:17px 38px;
+
+    background:#d8ae68;
+
+    color:#17100d;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    box-shadow:
+
+    0 12px 35px rgba(0,0,0,.35);
+
+    transition:.25s;
+
+}
+
+
+.cta:hover{
+
+    transform:translateY(-3px);
+
+    filter:brightness(1.08);
+}
+
+
+/* =========================
+   PANTALLA CATÁLOGO
+========================= */
+
+.catalog{
+
+    background:
+
+    linear-gradient(
+        rgba(12,9,10,.90),
+        rgba(12,9,10,.97)
+    ),
+
+    url("https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=2000&q=90")
+
+    center/cover fixed;
+}
+
+
+.catalog-wrap{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:
+
+    28px
+    5vw
+    70px;
+}
+
+
+.catalog-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:55px;
+}
+
+
+.brand{
+
+    font:
+
+    700 27px Georgia,serif;
+
+    letter-spacing:4px;
+
+    color:#f0d49c;
+}
+
+
+.back{
+
+    background:transparent;
+
+    color:#ddd;
+
+    border:1px solid #51484a;
+
+    border-radius:30px;
+
+    padding:10px 17px;
+
+    cursor:pointer;
+}
+
+
+.back:hover{
+
+    border-color:#d8ae68;
+
+    color:#f0d49c;
+}
+
+
+/* TITULO */
+
+.catalog-title{
+
+    text-align:center;
+
+    margin-bottom:42px;
+}
+
+
+.catalog-title .kicker{
+
+    margin-bottom:12px;
+}
+
+
+.catalog-title h2{
+
+    font:
+
+    700 clamp(40px,6vw,68px)
+    Georgia,serif;
+}
+
+
+.catalog-title p{
+
+    color:#bdb5b2;
+
+    margin-top:10px;
+}
+
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+
+    repeat(
+        auto-fit,
+        minmax(235px,1fr)
+    );
+
+    gap:24px;
+}
+
+
+.card{
+
+    background:
+
+    rgba(25,19,21,.96);
+
+    border:
+
+    1px solid
+    rgba(255,255,255,.09);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    box-shadow:
+
+    0 20px 45px
+    rgba(0,0,0,.3);
+}
+
+
+.card:hover{
+
+    transform:translateY(-7px);
+
+    border-color:
+    rgba(216,174,104,.6);
+}
+
+
+.card img{
+
+    width:100%;
+
+    height:300px;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+
+.info{
+
+    padding:20px;
+}
+
+
+.tag{
+
+    color:#d8ae68;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+}
+
+
+.card h3{
+
+    font:
+
+    700 25px Georgia,serif;
+
+    margin:7px 0;
+}
+
+
+.card p{
+
+    font-size:14px;
+
+    color:#bdb5b2;
+
+    min-height:42px;
+}
+
+
+.price{
+
+    font-size:21px;
+
+    font-weight:800;
+
+    color:#f0d49c;
+
+    margin:15px 0;
+}
+
+
+.details{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    border:
+
+    1px solid #4b4143;
+
+    background:#272022;
+
+    color:white;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+
+.details:hover{
+
+    background:#d8ae68;
+
+    color:#17100d;
+}
+
+
+/* =========================
+   CONTACTO
+========================= */
+
+.bottom{
+
+    margin-top:70px;
+
+    padding:
+
+    45px 20px;
+
+    text-align:center;
+
+    border-top:
+
+    1px solid
+    rgba(255,255,255,.1);
+}
+
+
+.bottom h3{
+
+    font:
+
+    700 35px Georgia,serif;
+}
+
+
+.bottom p{
+
+    color:#bdb5b2;
+
+    margin:
+
+    10px 0 22px;
+}
+
+
+.contact{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+
+.contact a{
+
+    display:inline-block;
+
+    padding:
+
+    13px 22px;
+
+    border-radius:30px;
+
+    text-decoration:none;
+
+    font-weight:800;
+}
+
+
+.wa{
+
+    background:#25d366;
+
+    color:#06170b;
+}
+
+
+.mail{
+
+    background:#d8ae68;
+
+    color:#17100d;
+}
+
+
+footer{
+
+    text-align:center;
+
+    color:#756d6b;
+
+    font-size:12px;
+
+    margin-top:35px;
+}
+
+
+/* =========================
+   VENTANA DE PRODUCTO
+========================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    rgba(0,0,0,.82);
+
+    z-index:20;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+
+.modal.open{
+
+    display:flex;
+}
+
+
+.modal-box{
+
+    max-width:850px;
+
+    width:100%;
+
+    background:#181214;
+
+    border:
+
+    1px solid #4a3d40;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+
+.modal-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+}
+
+
+.modal-img{
+
+    width:100%;
+
+    height:100%;
+
+    min-height:420px;
+
+    object-fit:cover;
+}
+
+
+.modal-info{
+
+    padding:38px;
+}
+
+
+.modal-info h2{
+
+    font:
+
+    700 43px Georgia,serif;
+
+    margin:
+
+    8px 0 14px;
+}
+
+
+.modal-info p{
+
+    color:#c4bcba;
+
+    margin-bottom:20px;
+}
+
+
+.close{
+
+    position:absolute;
+
+    right:14px;
+
+    top:14px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    border:0;
+
+    background:
+
+    rgba(0,0,0,.65);
+
+    color:white;
+
+    font-size:23px;
+
+    z-index:2;
+
+    cursor:pointer;
+}
+
+
+.modal-wa{
+
+    display:inline-block;
+
+    padding:
+
+    14px 20px;
+
+    border-radius:30px;
+
+    background:#25d366;
+
+    color:#06170b;
+
+    text-decoration:none;
+
+    font-weight:800;
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media(max-width:700px){
+
+    .catalog{
+
+        background-attachment:scroll;
+
     }
 
-    html {
-      scroll-behavior: smooth;
+
+    .catalog-wrap{
+
+        padding:
+
+        22px
+        5vw
+        50px;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0d0a0b;
-      color: white;
-      line-height: 1.5;
+
+    .catalog-top{
+
+        margin-bottom:38px;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
+
+    .brand{
+
+        font-size:22px;
     }
 
-    /* PORTADA */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 30px;
-      position: relative;
-      overflow: hidden;
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(8,5,6,.88),
-          rgba(8,5,6,.35)
-        ),
-        url("https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1800&q=85")
-        center/cover fixed;
+    .card img{
+
+        height:270px;
     }
 
-    .hero:after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(
-          circle at center,
-          transparent 0 25%,
-          rgba(0,0,0,.38) 100%
-        );
+
+    .modal-grid{
+
+        grid-template-columns:1fr;
     }
 
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 850px;
+
+    .modal-img{
+
+        height:260px;
+
+        min-height:0;
     }
 
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 5px;
-      font-size: 13px;
-      color: #e8c98a;
-      margin-bottom: 18px;
+
+    .modal-info{
+
+        padding:25px;
     }
 
-    h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(54px, 9vw, 105px);
-      line-height: .95;
-      margin-bottom: 22px;
+
+    .modal-info h2{
+
+        font-size:35px;
     }
 
-    .hero p {
-      font-size: clamp(17px, 2.2vw, 23px);
-      color: #eee;
-      max-width: 650px;
-      margin: 0 auto 35px;
-    }
+}
 
-    /* BOTONES */
-    .btn {
-      display: inline-block;
-      padding: 15px 28px;
-      border-radius: 40px;
-      background: #d7ad64;
-      color: #17100c;
-      font-weight: 800;
-      transition: .25s;
-      cursor: pointer;
-      border: 0;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.08);
-    }
-
-    /* SECCIONES */
-    section {
-      padding: 90px 6vw;
-    }
-
-    .section-head {
-      text-align: center;
-      margin-bottom: 45px;
-    }
-
-    .section-head h2 {
-      font: 700 clamp(35px, 5vw, 58px) Georgia, serif;
-    }
-
-    .section-head p {
-      color: #bdb4b0;
-      margin-top: 10px;
-    }
-
-    /* CATÁLOGO */
-    #catalogo {
-      background:
-        linear-gradient(
-          rgba(14,10,10,.88),
-          rgba(14,10,10,.96)
-        ),
-        url("https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=1800&q=80")
-        center/cover fixed;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fit, minmax(230px, 1fr));
-      gap: 25px;
-      max-width: 1250px;
-      margin: auto;
-    }
-
-    .card {
-      background: #181213;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 22px;
-      overflow: hidden;
-      transition: .3s;
-      box-shadow: 0 18px 40px rgba(0,0,0,.25);
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(215,173,100,.55);
-    }
-
-    .card img {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .card-body {
-      padding: 20px;
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #d7ad64;
-      margin-bottom: 8px;
-    }
-
-    .card h3 {
-      font: 700 25px Georgia, serif;
-      margin-bottom: 8px;
-    }
-
-    .card p {
-      color: #bcb4b1;
-      font-size: 14px;
-      min-height: 43px;
-    }
-
-    .price {
-      font-size: 22px;
-      font-weight: 800;
-      margin: 15px 0;
-      color: #f3d79f;
-    }
-
-    .details {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      background: #262022;
-      color: white;
-      border: 1px solid #3c3335;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .details:hover {
-      background: #d7ad64;
-      color: #17100c;
-    }
-
-    /* NOSOTROS */
-    .about {
-      background: #110d0e;
-      text-align: center;
-    }
-
-    .about-box {
-      max-width: 850px;
-      margin: auto;
-    }
-
-    .about-box p {
-      color: #c7bfbc;
-      font-size: 17px;
-      margin: 15px 0;
-    }
-
-    /* CONTACTO */
-    .contact {
-      background:
-        linear-gradient(
-          135deg,
-          #1a1315,
-          #0b0809
-        );
-      text-align: center;
-    }
-
-    .contact-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 25px;
-    }
-
-    .whatsapp {
-      background: #25D366;
-      color: #06170b;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #8e8582;
-      background: #090708;
-      font-size: 13px;
-    }
-
-    /* VENTANA DE DETALLES */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      inset: 0;
-      background: rgba(0,0,0,.78);
-      padding: 25px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal.open {
-      display: flex;
-    }
-
-    .modal-box {
-      background: #171112;
-      border: 1px solid #3d3234;
-      border-radius: 24px;
-      max-width: 850px;
-      width: 100%;
-      max-height: 90vh;
-      overflow: auto;
-      position: relative;
-    }
-
-    .modal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .modal img {
-      width: 100%;
-      height: 100%;
-      min-height: 430px;
-      object-fit: cover;
-    }
-
-    .modal-info {
-      padding: 35px;
-    }
-
-    .modal-info h2 {
-      font: 700 43px Georgia, serif;
-      margin: 8px 0 15px;
-    }
-
-    .modal-info p {
-      color: #c4bcba;
-      margin-bottom: 18px;
-    }
-
-    .close {
-      position: absolute;
-      right: 18px;
-      top: 14px;
-      background: rgba(0,0,0,.65);
-      border: 0;
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      font-size: 22px;
-      cursor: pointer;
-      z-index: 2;
-    }
-
-    /* CELULAR */
-    @media(max-width:700px) {
-
-      .hero {
-        background-attachment: scroll;
-      }
-
-      #catalogo {
-        background-attachment: scroll;
-      }
-
-      section {
-        padding: 70px 5vw;
-      }
-
-      .card img {
-        height: 270px;
-      }
-
-      .modal-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .modal img {
-        min-height: 280px;
-        height: 280px;
-      }
-
-      .modal-info h2 {
-        font-size: 35px;
-      }
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
-  <!-- ================= PORTADA ================= -->
 
-  <header class="hero" id="inicio">
+<!-- ==================================================
+     PANTALLA 1
+     INICIO
+================================================== -->
 
-    <div class="hero-content">
+<section
+id="home"
+class="screen home active"
+>
 
-      <div class="eyebrow">
-        Perfumes · Elegancia · Personalidad
-      </div>
+    <div class="home-content">
 
-      <h1>
-        Tu esencia,<br>
-        tu estilo.
-      </h1>
 
-      <p>
-        Descubre lociones para cada momento.
-        Fragancias que dejan huella y hablan de ti
-        sin decir una palabra.
-      </p>
+        <div class="logo">
 
-      <!-- ÚNICO BOTÓN DE LA PORTADA -->
-      <a class="btn" href="#catalogo">
-        VER OPCIONES
-      </a>
+            ESENCIA
+
+        </div>
+
+
+        <div class="kicker">
+
+            Perfumes · Elegancia · Personalidad
+
+        </div>
+
+
+        <h1>
+
+            Tu esencia,
+            <br>
+            tu estilo.
+
+        </h1>
+
+
+        <p class="home-text">
+
+            Descubre fragancias seleccionadas
+            para personas que quieren dejar
+            una impresión inolvidable.
+
+        </p>
+
+
+        <!-- ÚNICO BOTÓN DEL INICIO -->
+
+        <button
+        class="cta"
+        onclick="showCatalog()"
+        >
+
+            VER OPCIONES
+
+        </button>
+
 
     </div>
 
-  </header>
+</section>
 
 
-  <!-- ================= CATÁLOGO ================= -->
 
-  <main>
+<!-- ==================================================
+     PANTALLA 2
+     CATÁLOGO
+================================================== -->
 
-    <section id="catalogo">
+<section
+id="catalog"
+class="screen catalog"
+>
 
-      <div class="section-head">
 
-        <div class="eyebrow">
-          Nuestra colección
+<div class="catalog-wrap">
+
+
+    <!-- ENCABEZADO -->
+
+    <div class="catalog-top">
+
+
+        <div class="brand">
+
+            ESENCIA
+
         </div>
 
+
+        <button
+        class="back"
+        onclick="showHome()"
+        >
+
+            ← INICIO
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- TITULO -->
+
+    <div class="catalog-title">
+
+
+        <div class="kicker">
+
+            Nuestra colección
+
+        </div>
+
+
         <h2>
-          Lociones destacadas
+
+            Lociones destacadas
+
         </h2>
 
+
         <p>
-          Haz clic en una fragancia para conocer sus detalles.
+
+            Elige tu favorita y conoce
+            todos sus detalles.
+
         </p>
 
-      </div>
+
+    </div>
 
 
-      <div class="grid">
+
+    <!-- PRODUCTOS -->
+
+    <div class="grid">
 
 
-        <!-- LOCIÓN 1 -->
+
+        <!-- PRODUCTO 1 -->
 
         <article class="card">
 
-          <img
-            src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=85"
-            alt="Perfume dorado"
-          >
 
-          <div class="card-body">
+            <img
+            src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=90"
+            alt="Golden Élite"
+            >
 
-            <span class="tag">
-              Unisex
-            </span>
 
-            <h3>
-              Golden Élite
-            </h3>
+            <div class="info">
 
-            <p>
-              Elegante, cálida y sofisticada.
-            </p>
 
-            <div class="price">
-              $120.000 COP
-            </div>
+                <span class="tag">
 
-            <button
-              class="details"
-              onclick="openModal(
+                    Unisex
+
+                </span>
+
+
+                <h3>
+
+                    Golden Élite
+
+                </h3>
+
+
+                <p>
+
+                    Elegante,
+                    cálida y sofisticada.
+
+                </p>
+
+
+                <div class="price">
+
+                    $120.000 COP
+
+                </div>
+
+
+                <button
+                class="details"
+                onclick="openProduct(
                 'Golden Élite',
                 'Unisex',
-                '120.000',
+                '$120.000 COP',
                 'Elegante, cálida y sofisticada. Ideal para ocasiones especiales y para quienes quieren una presencia inolvidable.',
-                'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=85'
-              )"
-            >
-              VER DETALLES
-            </button>
+                'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=90'
+                )"
+                >
 
-          </div>
+                    VER DETALLES
+
+                </button>
+
+
+            </div>
 
         </article>
 
 
-        <!-- LOCIÓN 2 -->
+
+        <!-- PRODUCTO 2 -->
 
         <article class="card">
 
-          <img
-            src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=85"
-            alt="Perfume elegante"
-          >
 
-          <div class="card-body">
+            <img
+            src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=90"
+            alt="Rose Velvet"
+            >
 
-            <span class="tag">
-              Femenina
-            </span>
 
-            <h3>
-              Rose Velvet
-            </h3>
+            <div class="info">
 
-            <p>
-              Floral, delicada y envolvente.
-            </p>
 
-            <div class="price">
-              $95.000 COP
-            </div>
+                <span class="tag">
 
-            <button
-              class="details"
-              onclick="openModal(
+                    Femenina
+
+                </span>
+
+
+                <h3>
+
+                    Rose Velvet
+
+                </h3>
+
+
+                <p>
+
+                    Floral,
+                    delicada y envolvente.
+
+                </p>
+
+
+                <div class="price">
+
+                    $95.000 COP
+
+                </div>
+
+
+                <button
+                class="details"
+                onclick="openProduct(
                 'Rose Velvet',
                 'Femenina',
-                '95.000',
+                '$95.000 COP',
                 'Una combinación floral suave y envolvente, perfecta para el día a día o una cita especial.',
-                'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=85'
-              )"
-            >
-              VER DETALLES
-            </button>
+                'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=90'
+                )"
+                >
 
-          </div>
+                    VER DETALLES
+
+                </button>
+
+
+            </div>
 
         </article>
 
 
-        <!-- LOCIÓN 3 -->
+
+        <!-- PRODUCTO 3 -->
 
         <article class="card">
 
-          <img
-            src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=900&q=85"
-            alt="Perfume oscuro"
-          >
 
-          <div class="card-body">
+            <img
+            src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=900&q=90"
+            alt="Black Night"
+            >
 
-            <span class="tag">
-              Masculina
-            </span>
 
-            <h3>
-              Black Night
-            </h3>
+            <div class="info">
 
-            <p>
-              Intensa, fresca y magnética.
-            </p>
 
-            <div class="price">
-              $110.000 COP
-            </div>
+                <span class="tag">
 
-            <button
-              class="details"
-              onclick="openModal(
+                    Masculina
+
+                </span>
+
+
+                <h3>
+
+                    Black Night
+
+                </h3>
+
+
+                <p>
+
+                    Intensa,
+                    fresca y magnética.
+
+                </p>
+
+
+                <div class="price">
+
+                    $110.000 COP
+
+                </div>
+
+
+                <button
+                class="details"
+                onclick="openProduct(
                 'Black Night',
                 'Masculina',
-                '110.000',
-                'Una fragancia intensa y moderna para la noche. Su carácter fresco y magnético está pensado para destacar.',
-                'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=900&q=85'
-              )"
-            >
-              VER DETALLES
-            </button>
+                '$110.000 COP',
+                'Una fragancia intensa y moderna para la noche, con carácter fresco y magnético.',
+                'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=900&q=90'
+                )"
+                >
 
-          </div>
+                    VER DETALLES
+
+                </button>
+
+
+            </div>
 
         </article>
 
 
-        <!-- LOCIÓN 4 -->
+
+        <!-- PRODUCTO 4 -->
 
         <article class="card">
 
-          <img
-            src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=900&q=85"
-            alt="Perfume de lujo"
-          >
 
-          <div class="card-body">
+            <img
+            src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=900&q=90"
+            alt="Royal Oud"
+            >
 
-            <span class="tag">
-              Unisex
-            </span>
 
-            <h3>
-              Royal Oud
-            </h3>
+            <div class="info">
 
-            <p>
-              Amaderada, profunda y lujosa.
-            </p>
 
-            <div class="price">
-              $135.000 COP
-            </div>
+                <span class="tag">
 
-            <button
-              class="details"
-              onclick="openModal(
+                    Unisex
+
+                </span>
+
+
+                <h3>
+
+                    Royal Oud
+
+                </h3>
+
+
+                <p>
+
+                    Amaderada,
+                    profunda y lujosa.
+
+                </p>
+
+
+                <div class="price">
+
+                    $135.000 COP
+
+                </div>
+
+
+                <button
+                class="details"
+                onclick="openProduct(
                 'Royal Oud',
                 'Unisex',
-                '135.000',
+                '$135.000 COP',
                 'Una esencia profunda de inspiración amaderada, pensada para transmitir lujo, seguridad y personalidad.',
-                'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=900&q=85'
-              )"
-            >
-              VER DETALLES
-            </button>
+                'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=900&q=90'
+                )"
+                >
 
-          </div>
+                    VER DETALLES
+
+                </button>
+
+
+            </div>
 
         </article>
 
 
-        <!-- LOCIÓN 5 -->
+
+        <!-- PRODUCTO 5 -->
 
         <article class="card">
 
-          <img
-            src="https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=900&q=85"
-            alt="Perfume claro"
-          >
 
-          <div class="card-body">
+            <img
+            src="https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=900&q=90"
+            alt="Sweet Bloom"
+            >
 
-            <span class="tag">
-              Femenina
-            </span>
 
-            <h3>
-              Sweet Bloom
-            </h3>
+            <div class="info">
 
-            <p>
-              Dulce, juvenil y luminosa.
-            </p>
 
-            <div class="price">
-              $90.000 COP
-            </div>
+                <span class="tag">
 
-            <button
-              class="details"
-              onclick="openModal(
+                    Femenina
+
+                </span>
+
+
+                <h3>
+
+                    Sweet Bloom
+
+                </h3>
+
+
+                <p>
+
+                    Dulce,
+                    juvenil y luminosa.
+
+                </p>
+
+
+                <div class="price">
+
+                    $90.000 COP
+
+                </div>
+
+
+                <button
+                class="details"
+                onclick="openProduct(
                 'Sweet Bloom',
                 'Femenina',
-                '90.000',
+                '$90.000 COP',
                 'Una fragancia dulce y luminosa con un estilo juvenil. Perfecta para regalar o disfrutar todos los días.',
-                'https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=900&q=85'
-              )"
-            >
-              VER DETALLES
-            </button>
+                'https://images.unsplash.com/photo-1590736969955-71cc94901144?auto=format&fit=crop&w=900&q=90'
+                )"
+                >
 
-          </div>
+                    VER DETALLES
+
+                </button>
+
+
+            </div>
 
         </article>
 
 
-        <!-- LOCIÓN 6 -->
+
+        <!-- PRODUCTO 6 -->
 
         <article class="card">
 
-          <img
-            src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=900&q=85"
-            alt="Perfume premium"
-          >
 
-          <div class="card-body">
+            <img
+            src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=900&q=90"
+            alt="Imperial"
+            >
 
-            <span class="tag">
-              Masculina
-            </span>
 
-            <h3>
-              Imperial
-            </h3>
+            <div class="info">
 
-            <p>
-              Fresca, elegante y duradera.
-            </p>
 
-            <div class="price">
-              $115.000 COP
-            </div>
+                <span class="tag">
 
-            <button
-              class="details"
-              onclick="openModal(
+                    Masculina
+
+                </span>
+
+
+                <h3>
+
+                    Imperial
+
+                </h3>
+
+
+                <p>
+
+                    Fresca,
+                    elegante y duradera.
+
+                </p>
+
+
+                <div class="price">
+
+                    $115.000 COP
+
+                </div>
+
+
+                <button
+                class="details"
+                onclick="openProduct(
                 'Imperial',
                 'Masculina',
-                '115.000',
+                '$115.000 COP',
                 'Una opción fresca y elegante para quienes buscan una fragancia versátil, con carácter y excelente presencia.',
-                'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=900&q=85'
-              )"
-            >
-              VER DETALLES
-            </button>
+                'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=900&q=90'
+                )"
+                >
 
-          </div>
+                    VER DETALLES
+
+                </button>
+
+
+            </div>
 
         </article>
 
-      </div>
-
-    </section>
-
-
-    <!-- ================= NOSOTROS ================= -->
-
-    <section id="nosotros" class="about">
-
-      <div class="about-box">
-
-        <div class="eyebrow">
-          Sobre nosotros
-        </div>
-
-        <h2>
-          Una fragancia dice mucho de ti.
-        </h2>
-
-        <p>
-          En Esencia buscamos que encuentres una loción
-          que combine con tu personalidad, tu estilo
-          y cada ocasión.
-        </p>
-
-        <p>
-          ¿Te gusta alguna?
-          Escríbenos directamente y te ayudamos con
-          disponibilidad, pedidos y recomendaciones.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= CONTACTO ================= -->
-
-    <section id="contacto" class="contact">
-
-      <div class="section-head">
-
-        <div class="eyebrow">
-          ¿Tienes una pregunta?
-        </div>
-
-        <h2>
-          Hablemos
-        </h2>
-
-        <p>
-          Contáctanos directamente para hacer tu pedido
-          o recibir asesoría.
-        </p>
-
-      </div>
-
-
-      <div class="contact-buttons">
-
-        <!-- WHATSAPP ABAJO -->
-
-        <a
-          class="btn whatsapp"
-          href="https://wa.me/573505791542?text=Hola%2C%20quiero%20comprar%20una%20locion"
-          target="_blank"
-        >
-          WhatsApp · 350 579 1542
-        </a>
-
-
-        <!-- CORREO ABAJO -->
-
-        <a
-          class="btn"
-          href="mailto:duvanfeliperiacos@gmail.com"
-        >
-          Enviar correo
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- ================= PIE DE PÁGINA ================= -->
-
-  <footer>
-
-    © 2026 Esencia · Perfumes & Lociones
-    · Todos los derechos reservados.
-
-  </footer>
-
-
-  <!-- ================= VENTANA DE PRODUCTO ================= -->
-
-  <div
-    class="modal"
-    id="modal"
-    onclick="if(event.target===this)closeModal()"
-  >
-
-    <div class="modal-box">
-
-      <button
-        class="close"
-        onclick="closeModal()"
-      >
-        ×
-      </button>
-
-      <div class="modal-grid">
-
-        <img
-          id="modalImg"
-          src=""
-          alt=""
-        >
-
-        <div class="modal-info">
-
-          <span
-            class="tag"
-            id="modalTag"
-          ></span>
-
-          <h2 id="modalTitle"></h2>
-
-          <div
-            class="price"
-            id="modalPrice"
-          ></div>
-
-          <p id="modalDesc"></p>
-
-          <a
-            id="modalWhatsApp"
-            class="btn whatsapp"
-            target="_blank"
-          >
-            CONSULTAR POR WHATSAPP
-          </a>
-
-        </div>
-
-      </div>
 
     </div>
 
-  </div>
 
 
-  <!-- ================= JAVASCRIPT ================= -->
+    <!-- CONTACTO -->
 
-  <script>
-
-    function openModal(
-      title,
-      tag,
-      price,
-      desc,
-      img
-    ) {
-
-      document.getElementById(
-        'modalTitle'
-      ).textContent = title;
-
-      document.getElementById(
-        'modalTag'
-      ).textContent = tag;
-
-      document.getElementById(
-        'modalPrice'
-      ).textContent = '$' + price + ' COP';
-
-      document.getElementById(
-        'modalDesc'
-      ).textContent = desc;
-
-      document.getElementById(
-        'modalImg'
-      ).src = img;
+    <div class="bottom">
 
 
-      document.getElementById(
-        'modalWhatsApp'
-      ).href =
-        'https://wa.me/573505791542?text=' +
-        encodeURIComponent(
-          'Hola, estoy interesado/a en la loción ' +
-          title +
-          '. ¿Está disponible?'
-        );
+        <h3>
+
+            ¿Te gustó alguna?
+
+        </h3>
 
 
-      document.getElementById(
-        'modal'
-      ).classList.add('open');
+        <p>
+
+            Escríbeme directamente para consultar
+            disponibilidad o hacer tu pedido.
+
+        </p>
 
 
-      document.body.style.overflow =
-        'hidden';
-
-    }
+        <div class="contact">
 
 
-    function closeModal() {
+            <a
+            class="wa"
+            href="https://wa.me/573505791542?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20las%20lociones"
+            target="_blank"
+            >
 
-      document.getElementById(
-        'modal'
-      ).classList.remove('open');
+                WhatsApp · 350 579 1542
 
-      document.body.style.overflow = '';
-
-    }
+            </a>
 
 
-    document.addEventListener(
-      'keydown',
-      function(e) {
+            <a
+            class="mail"
+            href="mailto:duvanfeliperiacos@gmail.com"
+            >
 
-        if (e.key === 'Escape') {
-          closeModal();
-        }
+                duvanfeliperiacos@gmail.com
 
-      }
+            </a>
+
+
+        </div>
+
+
+        <footer>
+
+            © 2026 ESENCIA ·
+            Perfumes & Lociones
+
+        </footer>
+
+
+    </div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================================
+     VENTANA DE DETALLES
+================================================== -->
+
+<div
+id="modal"
+class="modal"
+onclick="if(event.target===this)closeProduct()"
+>
+
+
+<div class="modal-box">
+
+
+<button
+class="close"
+onclick="closeProduct()"
+>
+
+    ×
+
+</button>
+
+
+<div class="modal-grid">
+
+
+<img
+id="modalImg"
+class="modal-img"
+src=""
+alt=""
+>
+
+
+<div class="modal-info">
+
+
+<span
+id="modalTag"
+class="tag"
+></span>
+
+
+<h2
+id="modalTitle"
+></h2>
+
+
+<div
+id="modalPrice"
+class="price"
+></div>
+
+
+<p
+id="modalDesc"
+></p>
+
+
+<a
+id="modalWa"
+class="modal-wa"
+target="_blank"
+>
+
+    CONSULTAR POR WHATSAPP
+
+</a>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================
+   CAMBIAR DE PANTALLA
+========================================= */
+
+
+function showCatalog(){
+
+    document
+    .getElementById("home")
+    .classList
+    .remove("active");
+
+
+    document
+    .getElementById("catalog")
+    .classList
+    .add("active");
+
+
+    document
+    .getElementById("catalog")
+    .scrollTop = 0;
+
+}
+
+
+
+function showHome(){
+
+    closeProduct();
+
+
+    document
+    .getElementById("catalog")
+    .classList
+    .remove("active");
+
+
+    document
+    .getElementById("home")
+    .classList
+    .add("active");
+
+}
+
+
+
+/* =========================================
+   DETALLES DE PRODUCTO
+========================================= */
+
+
+function openProduct(
+    title,
+    tag,
+    price,
+    desc,
+    img
+){
+
+    document
+    .getElementById("modalTitle")
+    .textContent = title;
+
+
+    document
+    .getElementById("modalTag")
+    .textContent = tag;
+
+
+    document
+    .getElementById("modalPrice")
+    .textContent = price;
+
+
+    document
+    .getElementById("modalDesc")
+    .textContent = desc;
+
+
+    document
+    .getElementById("modalImg")
+    .src = img;
+
+
+    document
+    .getElementById("modalWa")
+    .href =
+
+    "https://wa.me/573505791542?text=" +
+
+    encodeURIComponent(
+
+        "Hola, estoy interesado/a en la loción " +
+
+        title +
+
+        ". ¿Está disponible?"
+
     );
 
-  </script>
+
+    document
+    .getElementById("modal")
+    .classList
+    .add("open");
+
+}
+
+
+
+/* CERRAR DETALLES */
+
+
+function closeProduct(){
+
+    document
+    .getElementById("modal")
+    .classList
+    .remove("open");
+
+}
+
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key === "Escape"){
+
+            closeProduct();
+
+        }
+
+    }
+);
+
+</script>
+
 
 </body>
 </html>
